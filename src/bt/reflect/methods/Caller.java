@@ -14,10 +14,15 @@ public class Caller
 {
     public static String formatParameterValues(Object... values)
     {
+        return formatParameterValuesAtIndex(2, values);
+    }
+
+    public static String formatParameterValuesAtIndex(int stackIndex, Object... values)
+    {
         String ret = "";
 
         var stack = StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE)
-                               .walk(s -> s.skip(1)
+                               .walk(s -> s.skip(stackIndex)
                                            .findFirst())
                                .get();
 
@@ -54,8 +59,13 @@ public class Caller
 
     public static String formatCallerString(Object... values)
     {
+        return formatCallerStringAtIndex(2, values);
+    }
+
+    public static String formatCallerStringAtIndex(int stackIndex, Object... values)
+    {
         var stack = StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE)
-                               .walk(s -> s.skip(1)
+                               .walk(s -> s.skip(stackIndex)
                                            .findFirst())
                                .get();
 

@@ -17,7 +17,7 @@ public class Caller
         return formatParameterValuesAtIndex(2, values);
     }
 
-    public static String formatParameterValuesAtIndex(int stackIndex, Object... values)
+    public static String formatParameterValuesAtIndex(int stackIndex, Object[] values)
     {
         String ret = "";
 
@@ -62,7 +62,7 @@ public class Caller
         return formatCallerStringAtIndex(2, values);
     }
 
-    public static String formatCallerStringAtIndex(int stackIndex, Object... values)
+    public static String formatCallerStringAtIndex(int stackIndex, Object[] values)
     {
         var stack = StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE)
                                .walk(s -> s.skip(stackIndex)

@@ -3,6 +3,7 @@ package bt.reflect.field;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Basic utilities involving fields.
@@ -34,5 +35,34 @@ public final class Fields
         }
 
         return fields;
+    }
+
+    /**
+     * Gets the first field of the given class (and all its super classes) that matched the given condition.
+     *
+     * @param cls
+     * @param condition
+     * @return The first found field or null.
+     */
+    public static Field getField(Class<?> cls, Predicate<Field> condition)
+    {
+        Field field = null;
+        Class<?> currentClass = cls;
+
+        while (currentClass != null)
+        {
+            for (Field f : currentClass.getDeclaredFields())
+            {
+                if (condition.test(f))
+                {
+                    field = f;
+                    break;
+                }
+            }
+
+            currentClass = currentClass.getSuperclass();
+        }
+
+        return field;
     }
 }

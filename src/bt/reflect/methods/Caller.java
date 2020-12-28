@@ -32,7 +32,8 @@ public class Caller
 
         try
         {
-            Method m = cls.getMethod(methodName, type.parameterArray());
+            Method m = cls.getDeclaredMethod(methodName, type.parameterArray());
+            m.setAccessible(true);
 
             Parameter p;
 

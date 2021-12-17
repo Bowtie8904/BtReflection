@@ -1,5 +1,7 @@
 package bt.reflect.field;
 
+import bt.log.Log;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,8 @@ public final class Fields
      */
     public static List<Field> getAllFields(Class<?> cls)
     {
+        Log.entry(cls);
+
         List<Field> fields = new ArrayList<>();
         Class<?> currentClass = cls;
 
@@ -34,6 +38,8 @@ public final class Fields
             currentClass = currentClass.getSuperclass();
         }
 
+        Log.exit(cls);
+
         return fields;
     }
 
@@ -46,6 +52,8 @@ public final class Fields
      */
     public static Field getField(Class<?> cls, Predicate<Field> condition)
     {
+        Log.entry(cls, condition);
+
         Field field = null;
         Class<?> currentClass = cls;
 
@@ -62,6 +70,8 @@ public final class Fields
 
             currentClass = currentClass.getSuperclass();
         }
+
+        Log.exit(field);
 
         return field;
     }

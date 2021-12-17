@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import bt.log.Log;
 import org.reflections.Reflections;
 
 /**
@@ -29,6 +30,8 @@ public final class Annotations
      */
     public static Set<Class<?>> getAnnotatedClasses(String topPackage, Class<? extends Annotation>... annots)
     {
+        Log.entry(topPackage, annots);
+
         Reflections reflections = new Reflections(topPackage);
 
         Set<Class<?>> annotated = null;
@@ -45,6 +48,8 @@ public final class Annotations
             }
         }
 
+        Log.exit(annotated);
+
         return annotated;
     }
 
@@ -60,6 +65,8 @@ public final class Annotations
      */
     public static List<Method> getMethodsAnnotatedWith(Class<?> type, Class<? extends Annotation>... annotations)
     {
+        Log.entry(type, annotations);
+
         List<Method> methods = new ArrayList<>();
         Class<?> currentClass = type;
 
@@ -78,8 +85,11 @@ public final class Annotations
                     }
                 }
             }
+
             currentClass = currentClass.getSuperclass();
         }
+
+        Log.exit(methods);
 
         return methods;
     }
@@ -96,6 +106,8 @@ public final class Annotations
      */
     public static List<Field> getFieldsAnnotatedWith(Class<?> type, Class<? extends Annotation>... annotations)
     {
+        Log.entry(type, annotations);
+
         List<Field> fields = new ArrayList<>();
         Class<?> currentClass = type;
 
@@ -115,8 +127,11 @@ public final class Annotations
                 }
 
             }
+
             currentClass = currentClass.getSuperclass();
         }
+
+        Log.exit(fields);
 
         return fields;
     }

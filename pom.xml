@@ -17,18 +17,6 @@
 					<verbose>true</verbose>
 				</configuration>
 			</plugin>
-			<plugin>  <!-- Create sources.jar -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 	<repositories>
@@ -42,6 +30,11 @@
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
 			<version>0.9.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.Bowtie8904</groupId>
+			<artifactId>BtConsole</artifactId>
+			<version>7ac38344</version>
 		</dependency>
 	</dependencies>
 </project>

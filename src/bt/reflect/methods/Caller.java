@@ -1,5 +1,7 @@
 package bt.reflect.methods;
 
+import bt.log.Log;
+
 import java.lang.StackWalker.Option;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Method;
@@ -14,11 +16,19 @@ public class Caller
 {
     public static String formatParameterValues(Object... values)
     {
-        return formatParameterValuesAtIndex(2, values);
+        Log.entry(values);
+
+        String ret = formatParameterValuesAtIndex(2, values);
+
+        Log.exit(ret);
+
+        return ret;
     }
 
     public static String formatParameterValuesAtIndex(int stackIndex, Object[] values)
     {
+        Log.entry(stackIndex, values);
+
         String ret = "";
 
         var stack = StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE)
@@ -52,19 +62,29 @@ public class Caller
         }
         catch (NoSuchMethodException | SecurityException e)
         {
-            e.printStackTrace();
+            Log.error("Failed to format parameter values", e);
         }
+
+        Log.exit(ret);
 
         return ret;
     }
 
     public static String formatCallerString(Object... values)
     {
-        return formatCallerStringAtIndex(2, values);
+        Log.entry(values);
+
+        String ret = formatCallerStringAtIndex(2, values);
+
+        Log.exit(ret);
+
+        return ret;
     }
 
     public static String formatCallerStringAtIndex(int stackIndex, Object[] values)
     {
+        Log.entry(stackIndex, values);
+
         var stack = StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE)
                                .walk(s -> s.skip(stackIndex)
                                            .findFirst())
@@ -106,11 +126,17 @@ public class Caller
         str.append(") : ");
         str.append(stack.getLineNumber());
 
-        return str.toString();
+        ret = str.toString();
+
+        Log.exit(ret);
+
+        return ret;
     }
 
     protected static String valueToString(Object value)
     {
+        Log.entry(value);
+
         String ret = "";
 
         if (value != null)
@@ -163,6 +189,8 @@ public class Caller
         {
             ret = "null";
         }
+
+        Log.exit(ret);
 
         return ret;
     }
